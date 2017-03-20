@@ -20,15 +20,12 @@
 
 package me.satyabrat.wirelessadb;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -60,12 +57,18 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         textView1 = (TextView) findViewById(R.id.textView1);
 
-        adbState = checkAdb().trim();
-        if (adbState.equalsIgnoreCase("running")) {
-            adb.setText(R.string.disable_adb);
-            nadb.setChecked(true);
-        }
         updateStatus();
+
+        if (adbState.equalsIgnoreCase("running")) {
+            adb.setChecked(true);
+            nadb.setChecked(true);
+            adb.setText(R.string.disable_adb);
+        } else {
+            adb.setChecked(false);
+            nadb.setChecked(false);
+            adb.setText(R.string.enable_adb);
+        }
+
         nadb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (nadb.isChecked()) {
@@ -73,12 +76,14 @@ public class MainActivity extends AppCompatActivity {
                     enableNadb();
                     updateStatus();
                     adb.setChecked(true);
+                    adb.setText(R.string.disable_adb);
                     Log.e(LOG_TAG, "enable");
                 } else {
                     // The toggle is disabled
                     disableAdb();
                     updateStatus();
                     adb.setChecked(false);
+                    adb.setText(R.string.enable_adb);
                     Log.e(LOG_TAG, "disable");
                 }
             }
@@ -90,16 +95,16 @@ public class MainActivity extends AppCompatActivity {
                 if (adb.isChecked()) {
                     // The toggle is enabled
                     enableAdb();
-                    adb.setText(R.string.disable_adb);
                     nadb.setChecked(true);
                     updateStatus();
+                    adb.setText(R.string.disable_adb);
                     Log.e(LOG_TAG, "enable");
                 } else {
                     // The toggle is disabled
                     disableAdb();
-                    adb.setText(R.string.enable_adb);
                     updateStatus();
                     nadb.setChecked(false);
+                    adb.setText(R.string.enable_adb);
                     Log.e(LOG_TAG, "disable");
                 }
             }
