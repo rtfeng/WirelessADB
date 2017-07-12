@@ -21,6 +21,8 @@
 package me.satyabrat.wirelessadb;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     ToggleButton adb;
     ToggleButton nadb;
     String adbState;
+    String SOURCE_URL = "http://www.github.com/thelazyindian/WirelessADB";
+    String RELEASE_URL = "https://raw.githubusercontent.com/thelazyindian/WirelessADB/master/release.apk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,20 +265,30 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_source) {
-            // Handle the camera action
+            try {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(SOURCE_URL));
+                startActivity(i);
+            }
+            catch(Exception e){
+                Toast.makeText(this, "No Browser Application found", Toast.LENGTH_LONG).show();
+            }
         } else if (id == R.id.nav_share) {
-
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Try this app for toggling ADB/WirelessADB.\n" + RELEASE_URL);
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         } else if (id == R.id.nav_rate) {
-
+            Toast.makeText(this, "Not yet mate. :)", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_about) {
-
+            Toast.makeText(this, "Not yet mate. :)", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
