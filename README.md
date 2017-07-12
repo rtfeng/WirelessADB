@@ -1,4 +1,4 @@
-# Jmz Wireless ADB
+# Wireless ADB
 
 * Uses libsuperuser
 * Enables and disables wireless ADB
