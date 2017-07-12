@@ -84,18 +84,6 @@ public class MainActivity extends AppCompatActivity
         textView1 = (TextView) findViewById(R.id.textView1);
         msgView = (TextView) findViewById(R.id.msgView);
 
-        updateStatus();
-
-        if (adbState.equalsIgnoreCase("running")) {
-            adb.setChecked(true);
-            nadb.setChecked(true);
-            adb.setText(R.string.disable_adb);
-        } else {
-            adb.setChecked(false);
-            nadb.setChecked(false);
-            adb.setText(R.string.enable_adb);
-        }
-
         nadb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (nadb.isChecked()) {
@@ -136,6 +124,27 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        updateStatus();
+
+        if (adbState.equalsIgnoreCase("running")) {
+            adb.setChecked(true);
+            nadb.setChecked(true);
+            adb.setText(R.string.disable_adb);
+            if (!getIP().equals("")) {
+                msgView.setText("Run \"adb connect " + getIP() + ":5555\" via terminal");
+            }
+        } else {
+            adb.setChecked(false);
+            nadb.setChecked(false);
+            adb.setText(R.string.enable_adb);
+            msgView.setText("");
+        }
 
     }
 
