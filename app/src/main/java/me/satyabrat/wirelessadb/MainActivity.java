@@ -34,7 +34,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     Context context;
     TextView textView;
     TextView textView1;
+    TextView msgView;
     ToggleButton adb;
     ToggleButton nadb;
     String adbState;
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         nadb = (ToggleButton) findViewById(R.id.button1);
         textView = (TextView) findViewById(R.id.textView);
         textView1 = (TextView) findViewById(R.id.textView1);
+        msgView = (TextView) findViewById(R.id.msgView);
 
         updateStatus();
 
@@ -168,6 +173,7 @@ public class MainActivity extends AppCompatActivity
 
     public void enableAdb() {
         final String[] commands = {"setprop service.adb.tcp.port 5555", "stop adbd", "start adbd"};
+        msgView.setText("Run \"adb connect " + getIP() + ":5555\" via terminal");
         Thread runSu = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -200,6 +206,7 @@ public class MainActivity extends AppCompatActivity
 
     public void disableAdb() {
         final String[] commands = {"stop adbd"};
+        msgView.setText("");
         Thread runSu = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -260,17 +267,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_source) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_rate) {
+
+        } else if (id == R.id.nav_about) {
 
         }
 
