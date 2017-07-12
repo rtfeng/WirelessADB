@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
     ToggleButton nadb;
     String adbState;
     String SOURCE_URL = "http://www.github.com/thelazyindian/WirelessADB";
-    String RELEASE_URL = "https://raw.githubusercontent.com/thelazyindian/WirelessADB/master/release.apk";
+    String RELEASE_URL = "https://raw.githubusercontent.com/thelazyindian/WirelessADB/master/release/app-release.apk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
