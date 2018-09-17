@@ -12,4 +12,4 @@
 * Everything is done, enjoy!
 
 # Why need a .sh
-* The reason is unpredictable unconnecting may occur during testing.
+* The reason is unpredictable disconnecting may occur during testing.
